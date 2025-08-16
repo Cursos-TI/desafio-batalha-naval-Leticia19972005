@@ -1,46 +1,69 @@
 #include <stdio.h>
 
-int main() {
+#define linha 10
+#define coluna 10
 
-    int tabuleiro [10] [10] = {
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,0,0,0,0,0,0,0},
-    };
+int main () {
+   int tabuleiro [linha] [coluna] = {0};
+   int cone [3] [5] = {{0,0,5,0,0}, {0,5,5,5,0},{5,5,5,5,5}};
+   int cruz [3] [5] = {{0,0,6,0,0},{6,6,6,6,6},{0,0,6,0,0}};
+   int octaedro [3] [3] ={{0,7,0},{7,7,7},{0,7,0}};
+   int il, ic;
 
-    tabuleiro [1][4] = 3;
-    tabuleiro [1][5] = 3;
-    tabuleiro [1][6] = 3; //navio 1 horizontal
-
-    tabuleiro [5][4] = 3;
-    tabuleiro [6][4] = 3;
-    tabuleiro [7][4] = 3; // navio 2 vertical
-
-    tabuleiro [8] [4] = 3;
-    tabuleiro [9] [3] = 3;
-    tabuleiro [7] [5] = 3; // navio 3 horizontal
-
-    tabuleiro [1] [7] = 3;
-    tabuleiro [2] [6] = 3;
-    tabuleiro [3] [5] = 3; // navio 4 horizontal
-
-    int i,j;
-    
-    for ( i = 0; i < 10; i++)
+    for ( int i = 0; i < 3; i++)
     {
-        for ( j = 0; j < 10; j++)
+        il = 3;
+        ic = 5;
+        for ( int j = 0; j < 5; j++)
         {
-            printf("|%d|", tabuleiro[i][j]);
+            if (il + i< linha && ic + j < coluna ){
+            tabuleiro[il+i] [ic+j] = cone[i][j];
+            }
         }
-         printf("\n");
+        
+    }
+
+    for (int i = 0; i < 3; i++){
+        il = 0;
+        ic = 3;
+        for (int j = 0; j < 5; j++){
+            if (il + i< linha && ic + j < coluna ){
+            tabuleiro[il+i] [ic+j] = cruz[i][j];
+            }
+        }
+    }
+    
+    for (int i = 0; i < 3; i++){
+        il = 7;
+        ic = 1;
+        for (int j = 0; j < 3; j++){
+            if (il + i< linha && ic + j < coluna ){
+            tabuleiro[il+i] [ic+j] = octaedro[i][j];
+            }
+        }
+    }
+
+    for (int i = 0; i < linha; i++)
+    {
+        for (int j = 0; j < coluna; j++)
+        {
+            if (i == 2 && j < 5 && j > 1) {
+                tabuleiro[i][j]= 3;
+            }
+            else if (i <= 6 && i >= 4 && j ==3) {
+                tabuleiro[i][j]= 3;
+            }
+            else if (i>=6 && j>=7){
+            tabuleiro[i][i+1]= 3;
+            }
+            else if (i<=9 && i>6 && j>=0 && j<3){
+            tabuleiro[i][i-1]= 3;
+            }
+         printf("%d ", tabuleiro[i][j]);
+        } 
+        printf("\n");
     }
 
     return 0;
 }
+
